@@ -6,49 +6,44 @@
 var data = 10
 
 function logData() {
-  console.log(data)
+  console.log(data) // 10
 }
-
-//logData();
 
 /**
  * Inner functions
  */
-var data1 = 10
+var data = 10
 
 function logData() {
-  var innerData = 10
+  var innerData = 20
+
   function logInnerData() {
-    console.log(innerData, data1)
+    console.log(innerData, data) // > 10, 20
   }
 
   logInnerData()
 }
 
-// logData()
-
 /**
  * Shadowing
  */
-var data2 = 10
+// Shadowing variables in different scopes
+var data = 10
 
 function logData() {
-  var data2 = 20
-  console.log(data2)
+  var data = 20
+  console.log(data) // > 20
 }
 
-var data3 = 10
+// Shadowing parameters
+var data = 10
 
-function logData(data3) {
-  var data3 = 20
-  console.log(data3)
+function logData(data) {
+  var data = 20
+  console.log(data)
 }
 
-// logData(data2)
-
-/**
- * References & Scope Chain
- */
+logData(30) // 20
 
 /**
  * OOP with factory functions
@@ -60,14 +55,16 @@ class Person {
   }
 }
 
-// Java/C++/C#/PHP
-/*class Person {
+// Java
+/*
+class Person {
   private firstName;
 
-  constructor(firstName) {
+  Person(firstName) {
     this.firstName = firstName;
   }
-}*/
+}
+*/
 
 var john = new Person('John') // { firstName: 'John' }
 
@@ -218,4 +215,3 @@ var paymentProcessor = (function (shoppingCard) {
 }()) // pass your existing module here
 
 paymentProcessor.calculateTotal() // 33
-
