@@ -282,3 +282,44 @@ const bochi = {
 
 bochi.printNickName();
 ```
+
+4. Usando `call` haz que al ejecutar `talk` se escriba en consola: `woof`
+
+```js
+var dog = {
+  sound: "woof",
+};
+
+function talk() {
+  console.log(this.sound);
+}
+```
+
+5. Usando `bind` crea una funcion llamada `woof` a partir de la funcion `talk` y el objeto `dog`
+   que al ser ejecutada siempre imprima en consola: `woof`
+
+```js
+var dog = {
+  sound: "woof",
+};
+
+function talk() {
+  console.log(this.sound);
+}
+
+var woof = ...
+woof() // > 'woof'
+```
+
+6. Usando `apply` ejecuta la funcion `talk` de forma que tome el sonido a partir del objeto `dog` y
+   ademas pasale `dog` como argumento.
+
+```js
+var dog = {
+  sound: "woof",
+};
+
+function talk(name) {
+  console.log(`${name}: ${this.sound}`);
+}
+```
