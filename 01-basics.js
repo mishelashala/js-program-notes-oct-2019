@@ -73,30 +73,30 @@ function logMessage(logFn, msg) {
 logMessage(log, 'Give em hell')
 
 // basic operations (+, *, /, %)
-/*
-console.log(1 + 1)
-console.log(2 * 2)
-console.log(2 / 1)
-console.log(3 % 2) // 1
+1 + 1 // 2
+2 * 2 // 4
+2 / 1 // 2
+3 % 2 // 1
 
-console.log('Hello' + ' ' + 'world') */
+'Hello' + ' ' + 'world' // 'Hello World'
 
 // coercion
-//console.log(1 + 2) // 3
-//console.log('1' + 2) // '12'
-//console.log(1 + '2') // '12'
+1 + 2 // 3
+'1' + 2 // '12'
+1 + '2' // '12'
 
 // Augmented types vs Built In types
-// console.log(Number('12'))
-// console.log(String(12) + String(12))
-// Boolean()
-// Symbol('sym')
-// null
-// undefined
-// Object()
-// Array()
+Number('12') // Number 12
+String(12) + String(12) // '1212'
+Boolean(true) // Boolean true
+Symbol('sym') // Symbol('sym')
+Object() // Object {}
+Array() // Array []
+null // null
+undefined // undefined
+
 var num = 10.123456;
-Number(num).toFixed(2)
+Number(num).toFixed(2) // 10.12
 
 // Boxing & Unboxing
 // built in type
@@ -111,50 +111,45 @@ typeof list // 'object'
 Array.isArray(list)
 
 // double equal vs triple equal
-// console.log(1 == '1')
-// console.log(1 === '1')
-// console.log('1' === '1')
-// console.log({ firstName: 'John' } === { firstName: 'John' })
+1 == '1' // true
+1 === '1' // false
+'1' === '1' // false
+{ firstName: 'John' } === { firstName: 'John' } // false
 
 // undeclared vs undefined
 var john = 'asdfasdf'
 var num; // undefined
 
-// console.log(asdfasdf.toFixed(2))
+// asdfasdf.toFixed(2) // ReferenceError
 
 // falsy & truthy values
-'' // false
-null // false
-undefined // false
-false // false
-0 // false
-
--1 // true
-1 // true
-{} // true
-[] // true
-true // true
-Symbol('asdf') // true
-
-// !! vs Boolean
 Boolean('') // false
+Boolean(null) // false
+Boolean(undefined) // false
+Boolean(false) // false
+Boolean(0) // false
+
+Boolean(-1) // true
+Boolean(1) // true
+Boolean({}) // true
 Boolean([]) // true
+Boolean(true) // true
+Boolean(Symbol('asdf')) // true
 
 // NaN
 // Not a Number
-//console.log(typeof NaN)
+typeof NaN // 'number'
 
-// console.log(1 / 'asdfasdf')
-// console.log(1 / [1,2,3])
+1 / 'asdfasdf' // NaN
+1 / [1,2,3] // NaN
 
 // array operations
 var list = [1,2,3]
-console.log(list[0])
-console.log(list[1])
-console.log(list[2])
+list[0] // 1
+list[1] // 2
+list[2] // 3
 
 var str = '123' // ['1', '2', '3']
-console.log(str[0])
-console.log(str[1])
-console.log(str[2])
-
+str[0] // '1'
+str[1] // '2'
+str[2] // '3'
