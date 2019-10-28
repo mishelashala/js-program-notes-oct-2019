@@ -229,3 +229,56 @@ var john = new Person("John"); // 'Nope'
 
 En el ejemplo 1.8 nosotros regresamos la cadena `'Nope'` de forma **explicita** desde el cuerpo de la funcion
 `Person`, debido a esto el _runtime_ ya no regresa el objeto `this` en su lugar.
+
+## Ejercicios
+
+1. Cual es el resultado del siguiente codigo?
+
+```js
+nickname = "mkleo";
+
+const obj = {
+  nickname: "mew2king",
+  printNickName: function() {
+    console.log(this.nickname);
+  },
+};
+
+const printNickName = obj.printNickName;
+printNickName();
+```
+
+2. Cual es el resultado del siguiente codigo?
+
+```js
+nickname = "mkleo";
+
+const obj = {
+  nickname: "mew2king",
+  printNickName: function() {
+    console.log(this.nickname);
+  },
+};
+
+obj.printNickName();
+```
+
+3. Cual es el resultado del siguiente codigo?
+
+```js
+nickname = "mkleo";
+
+const obj = {
+  nickname: "mew2king",
+  printNickName: function() {
+    console.log(this.nickname);
+  },
+};
+
+const bochi = {
+  nickname: "bochi",
+  printNickName: obj.printNickName,
+};
+
+bochi.printNickName();
+```
