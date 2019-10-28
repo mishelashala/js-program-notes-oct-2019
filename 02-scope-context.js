@@ -7,25 +7,18 @@
  */
 function sayHi() {
   var message = 'Hello'
-  //console.log(message)
+  console.log(message)
 }
 
-sayHi()
-sayHi()
-
-{
-  var message = 'asfadsfs'
-}
-
-// if {
-//} else {
-//}
+sayHi() // > 'Hello'
+sayHi() // > 'Hello'
 
 function sayHi() {
-  //console.log(message)
+  console.log(message)
   var message = 'hi'
-  function innerFn() {}
 }
+
+sayHi() // > undefined
 
 // Hoisting
 // compiled-like version
@@ -33,11 +26,12 @@ function sayHi() {
   // only with var variables - functions
   var message;
   function innerFn() {}
-  //console.log(message)
+  // temporary death zone - declared, but not initialized
+  console.log(message)
   message = 'hi'
 }
 
-// temporary death zone
+sayHi() // > undefined
 
 // es6 - block scope
 
@@ -60,16 +54,18 @@ var data;
 data = 10
 data = 20
 
+// Duplicated - Error
 // let repeated = 10
 // let repeated = 20
 
+// Duplicated - Error
 // const a = 10
 // const a = 20
 
 {
   // this is gonna break (ReferenceError)
   // console.log(data)
-  // const data = 10
+  const data = 10
 }
 
 // reassign variables
@@ -77,29 +73,12 @@ let reassignableData = 10
 reassignableData = 20
 
 const john = { firstName: 'John' }
-// its gonna break - cannot reassign
+// it's gonna break - cannot reassign
 // john = { firstName: 'Jenny' }
 john.firstName = 'Jenny'
 
 const list = [1, 2, 3]
 list.push(4) // [1,2,3,4]
-
-/**
- * Hoisting (variables and functions)
- */
-
-/**
- * Temporary Death Zone
- */
-
-/**
- * Block Scope
- */
-
-/**
- * let & const
- */
-
 
 // === CONTEXT ===
 
@@ -111,17 +90,15 @@ list.push(4) // [1,2,3,4]
 /**
  * Global _this_
  */
-//console.log(this) // nodejs: process
-// browser: window
-firstName = 'John Doe'
+// console.log(this) - nodejs: process
+// console.log(this) - browser: window
+firstName = 'John Doe' // window.firstName = 'John Doe'
 
 function getFirstName() {
   return this.firstName;
 }
 
-//console.log(
-  getFirstName()
-//)
+getFirstName() // 'John Doe'
 
 /**
  * Call
@@ -130,40 +107,35 @@ function getFirstName() {
   return this.firstName;
 }
 
-var john2 = {
-  firstName: 'John Doe'
+var jenny = {
+  firstName: 'Jenny Doe'
 }
 
 // call point
-getFirstName.call(john2)
+getFirstName.call(jenny) // 'Jenny Doe'
 
 /**
  * _this_ inside objects
  */
 firstName = 'Chuck'
 
-var john1 = {
+var john = {
   firstName: 'John Doe',
   getFirstName: function () {
     return this.firstName
   }
 }
 
-var getChucksFirstName = john1.getFirstName
+var getChucksFirstName = john.getFirstName
 
-console.log(
-  john1.getFirstName(),
-  getChucksFirstName(),
-)
-
-/**
- * Object properties' are references
- */
+john.getFirstName() // 'John Doe'
+// Object properties' are references
+getChucksFirstName() // 'Chuck'
 
 /**
  * Bind
  */
-var john4 = {
+var john = {
   firstName: 'John'
 }
 
@@ -175,13 +147,11 @@ function getFirstName() {
   return this.firstName
 }
 
-var getJohnFirstName = getFirstName.bind(john4)
+var getJohnFirstName = getFirstName.bind(john)
 var getJennyFirstName = getFirstName.bind(jenny)
 
-console.log(
-  getJohnFirstName(),
-  getJennyFirstName()
-)
+getJohnFirstName() // 'John'
+getJennyFirstName() // 'Jenny'
 
 /**
  * new operator
@@ -190,10 +160,4 @@ function Person(firstName) {
   this.firstName = firstName;
 }
 
-var j = new Person('John')
-
-/**
- * Avoid using this
- */
-
-
+var john = new Person('John') // { firstName: 'John' }
