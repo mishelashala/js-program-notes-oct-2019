@@ -207,3 +207,32 @@ Si nosotros inspeccionamos el objeto `john` vemos que tiene `getFirstName` como 
 vemos qué al inspeccionarnos no nos dice nada sobre la función `getFirstName`: no nos dice la lista de
 parametros que recibe, ni la implementación. En otras palabras: está función encapsula todos los detalles
 de la misma.
+
+## Exercises
+
+1. Crear una función llamada `vehicle` que tenga el siguiente comportamiento:
+
+```js
+var car = vehicle("car");
+car.getType(); // 'car'
+car.startEngine(); // it should log -> 'Starting engine'
+car.stopEngine(); // it should log -> 'Stoping engines'
+```
+
+2. Crear una función llamada `dog` que tenga el siguiente comportamiento:
+
+```js
+var dog = vehicle("fluffy", 2);
+dog.getName(); // 'fluffy'
+dog.getAge(); // '2 years'
+dog.bark(); // it should log -> 'Woof! Woof!'
+```
+
+3. Crear una función llamada `person` que tenga el siguiente comportamiento:
+
+```js
+var john = vehicle("John", "Doe", 18);
+john.getFirstName(); // 'John'
+john.getLastName(); // 'Doe'
+john.getAge(); // 18
+```
