@@ -6,7 +6,7 @@ Todo objeto en _javascript_ tiene un prototipo. Esté es una referencia a un obj
 Todo objeto por defecto tiene su prototipo apuntando a un objeto vacio. El objeto
 global `Object` también tiene un prototipo, pero esté apunta a `undefined`.
 
-### getPrototypeOf
+### getPrototypeOf
 
 La forma en la que obtenemos el prototipo de un objeto es atraves de `Object.getPrototypeOf`
 
@@ -49,7 +49,7 @@ argumento. `Object.setPrototypeOf` hará que el prototipo de `otherJohn` apunte 
 Si nosotros inspeccionamos en la siguiente linea el prototipo de `otherJohn` podemos efectivamente
 corroborar esté comportamiento.
 
-### Own propverties vs Inherited properties
+### Own propverties vs Inherited properties
 
 ```js
 // Ejemplo 1.3
@@ -183,7 +183,7 @@ El ejemplo 1.3 es equivalente al ejemplo 1.2: concatenamos las propiedades de ca
 que los encierra), después concatenamos las propiedades de plane. La misma regla sobre propiedades duplicadas
 aplica.
 
-## Functional Mixins
+## Functional Mixins
 
 _functional mixins_ son _mixins_ creados a traves del uso de funciones. En lugar de manualmente copiar
 copiar cada funcion y propiedad manualmente creamos una funcion que nos permita agilizar el proceso.
