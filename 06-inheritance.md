@@ -117,7 +117,7 @@ A esté mecanismo también se le conoce como herencia concatenativa, debido a qu
 propiedades de un objeto a otro.
 
 ```js
-// Ejemplo 1.1
+// Ejemplo 1.5
 var csStudent = {
   assignment: "CS 101",
   year: "freshment",
@@ -131,7 +131,7 @@ var john = {
 var johnCsStudent = Object.assign({}, csStudent, john);
 ```
 
-En el ejemplo 1.1 definimos la variable `csStudent` y le asignamos un objeto con las propiedades
+En el ejemplo 1.5 definimos la variable `csStudent` y le asignamos un objeto con las propiedades
 `assignment` y `year` con los valores `"CS 101"` y `"freshment"` respectivamente.
 
 Después declaramos e inicializamos la variable `john` a un objeto con las propiedades `age` y `firstName`
@@ -148,7 +148,7 @@ Hay que notar que si tenemos propiedades repetidas en los objetos pasados como a
 tiene precedencia el que esté más a la derecha de la lista de argumentos.
 
 ```js
-// Ejemplo 1.2
+// Ejemplo 1.6
 var car = {
   vehicleType: "car",
 };
@@ -160,14 +160,14 @@ var planeCar = Object.assign({}, car, plane);
 planeCar; // { vehicleType: 'plane' }
 ```
 
-En el ejemplo 1.2 tenemos dos objetos con la misma propiedad: `vehicleType`. Y al pasar ambos
+En el ejemplo 1.6 tenemos dos objetos con la misma propiedad: `vehicleType`. Y al pasar ambos
 objetos a `Object.assign` el valor que aparece en el objeto resultante apunta a `plane`.
 
 `ES6` trae un operador nuevo: _spread operator_, el cual nos permite copiar propiedades de un objeto
 a otro con una sintaxis un poco menos verbosa.
 
 ```js
-// Ejemplo 1.3
+// Ejemplo 1.7
 var car = {
   vehicleType: "car",
 };
@@ -179,7 +179,7 @@ var planeCar = { ...car, ...plane };
 planeCar; // { vehicleType: 'plane' }
 ```
 
-El ejemplo 1.3 es equivalente al ejemplo 1.2: concatenamos las propiedades de car (en el objeto literal vacio
+El ejemplo 1.7 es equivalente al ejemplo 1.6: concatenamos las propiedades de car (en el objeto literal vacio
 que los encierra), después concatenamos las propiedades de plane. La misma regla sobre propiedades duplicadas
 aplica.
 
@@ -189,7 +189,7 @@ _functional mixins_ son _mixins_ creados a traves del uso de funciones. En lugar
 copiar cada funcion y propiedad manualmente creamos una funcion que nos permita agilizar el proceso.
 
 ```js
-// Ejemplo 1.4
+// Ejemplo 1.8
 function student(assignment, year, target = {}) {
   return {
     ...target,
@@ -209,7 +209,7 @@ var john = person("John");
 var johnCsStudent = student("CS 101", "freshmen", john);
 ```
 
-En el ejemplo 1.4 en lugar de tener un objeto especifico llamado `csStudent` tenemos ahora una _factory function_
+En el ejemplo 1.8 en lugar de tener un objeto especifico llamado `csStudent` tenemos ahora una _factory function_
 llamada `student` que nos permite crear estudiantes. Esta funcion toma como argumentos `assignment`, `year` y el
 objeto `target` al cual le vamos a concatenar las propiedades `assignment` y `year`.
 
@@ -230,7 +230,7 @@ La funcion `student` nos regresara un objeto con todas las propiedades del objet
 _Functional mixins_ al estar basads en _factory functions_ nos permite tener _encapsulation_ y _data privacy_.
 
 ```js
-// Ejemplo 1.5
+// Ejemplo 1.9
 function student(assignment, year, target = {}) {
   var getAssignment = () => assignment;
   var getYear = () => year;
@@ -257,8 +257,67 @@ johnCsStudent; // { getAssignment: [Function], getYear: [Function], getName: [Fu
 johnCsStudent.getYear(); // 'freshmen'
 ```
 
-En el ejemplo 1.5 modificamos las funciones `student` y `person` para que en lugar de regresar los valores
+En el ejemplo 1.9 modificamos las funciones `student` y `person` para que en lugar de regresar los valores
 directamente nos regresen una serie de _getters_.
 
 La ventaja que tienen _functional mixins_ sobre otras formas de polimorfismo es la capacidad de soportar
 herencia y composicion al mismo tiempo. Lo mejor de ambos mundos en un solo lugar.
+
+## Functions as constructor
+
+_Javascript_ nos permite emular clases como en Java, para eso utilizamos funciones como constructores:
+
+```js
+// Ejemplo 1.10
+function Person(name) {
+  this.name = name;
+}
+
+Person.prototype.getName = function() {
+  return this.name;
+};
+
+var john = new Person("John");
+john.getFirstName(); // 'John'
+```
+
+En el ejemplo 1.10 declaramos una funcion llamada `Person` que define un parametro formal llamado `name`.
+Dentro del cuerpo de la funcion asignamos la propiedad al contexto interno de la funcion (a traves de la
+palabra reservada `this`).
+
+Despues agregamos la funcion `getName` al prototipo de `Person`. Luego invocamos la funcion `Person`
+precedida del operador `new` y con `'John'` como argumento.
+
+Cuando nosotros ejecutamos una funcion precedida de la palabra reservada `new` ocurren varias cosas: La primera;
+se crea un nuevo objeto vacio y se asigna al contexto de la funcion (la palabra reservada `this`), si nostros
+no regresamos nada de forma explicita desde la funcion (utlizando la palabra reservada `return`) entonces la
+funcion regresa el objeto asignado a `this`. Segundo: se crea un objeto a partir del prototype de dicha funcion
+y se establece este objeto como el protito del objeto almacenado en `this`.
+
+```js
+// Ejemplo 1.11
+function Person(name) {
+  this.name = name;
+}
+Person.prototype.getName = function() {
+  return this.name;
+};
+
+function Student(name, assignment) {
+  Person.call(this, name);
+  this.assignment = assignment;
+}
+Student.prototype.getAssignment = function() {
+  return this.assignment;
+};
+
+var john = new Student("John", "CS 101");
+john.getFirstName(); // 'John'
+john.getAssignment(); // 'CS 101'
+```
+
+En el ejemplo 1.11 tenemos casi el mismo codigo que en el ejemplo 1.10 pero agregamos ahora una funcion
+llamada `Student` que tiene `name` y `assignment` como parametros formales. Dentro del cuerpo de la funcion
+ejecutamos `Person` a traves de `call` y le pasamos el contexto de `Student` como primer argumento y `name`
+como segundo argumento. De esta forma en lugar de generar un contexto nuevo dentro de `Person` obligamos
+a la funcion que utilice el contexto de `Student`.
